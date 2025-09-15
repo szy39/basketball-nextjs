@@ -1,0 +1,136 @@
+/* Season Cards Styles */
+.seasons-page {
+    padding: 2rem;
+    max-width: 100%;
+    margin: 0 15rem;
+  }
+  
+  .season-cards-container {
+    margin-top: 2rem;
+  }
+  
+  .season-cards-title {
+    font-family: var(--font-oswald), Arial, Helvetica, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--foreground);
+    text-transform: uppercase;
+  }
+  
+  .season-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .season-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .season-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .season-card--active {
+    border-color: #4ade80;
+    background: rgba(74, 222, 128, 0.1);
+  }
+  
+  .season-card--completed {
+    border-color: #6b7280;
+    background: rgba(107, 114, 128, 0.1);
+  }
+  
+  .season-card--upcoming {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+  }
+  
+  .season-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .season-card-year {
+    font-family: var(--font-oswald), Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin: 0;
+  }
+  
+  .season-card-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .season-card-status--active {
+    background: #4ade80;
+    color: #000;
+  }
+  
+  .season-card-status--completed {
+    background: #6b7280;
+    color: #fff;
+  }
+  
+  .season-card-status--upcoming {
+    background: #f59e0b;
+    color: #000;
+  }
+  
+  .season-card-name {
+    font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--foreground);
+    margin: 0 0 1rem 0;
+  }
+  
+  .season-card-description {
+    font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  /* Loading ve Error States */
+  .loading-spinner {
+    text-align: center;
+    padding: 3rem;
+    font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    color: var(--foreground);
+  }
+  
+  .error-message {
+    text-align: center;
+    padding: 3rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    margin: 2rem 0;
+  }
+  
+  .error-message p {
+    font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+    color: #ef4444;
+    margin: 0;
+    font-size: 1.1rem;
+  }

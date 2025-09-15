@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Oswald, Inter } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import Image from "next/image";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+const oswald = Oswald({
   subsets: ["latin"],
+  weight: ["200","300","400","500","600","700"],
+  variable: "--font-oswald"
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
   subsets: ["latin"],
+  weight: ["200","300","400","500","600","700"],
+  variable: "--font-inter"
 });
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +31,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      
+      <body className={`${oswald.variable} ${inter.variable}`}>
+      <div className="navbar">
+        <div className="navbar-image">
+        <Image
+          src="/basketball.png"
+          alt="Basketball logo"
+          width={80}
+          height={80}
+          priority
+        />
+        </div>
+       
+        <div className="navbar-links">
+          <Link href={"/"}>Home</Link>
+          <Link href={"/seasons"}>Seasons</Link>
+          <Link href={"/countries"}>Countries</Link>
+          <Link href={"/leagues"}>Leagues</Link>
+          <Link href={"/teams"}>Teams</Link>
+          <Link href={"/players"}>Players</Link>
+        </div>
+      </div>
         {children}
       </body>
     </html>
