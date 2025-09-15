@@ -27,8 +27,7 @@
   }
   
   .season-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
+    background: var(--background);
     padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
@@ -48,7 +47,7 @@
   
   .season-card--completed {
     border-color: #6b7280;
-    background: rgba(107, 114, 128, 0.1);
+    background: var(--background);
   }
   
   .season-card--upcoming {
@@ -73,7 +72,6 @@
   
   .season-card-status {
     padding: 0.25rem 0.75rem;
-    border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -85,8 +83,9 @@
   }
   
   .season-card-status--completed {
-    background: #6b7280;
-    color: #fff;
+    background: var(--foreground);
+    border: 1px solid var(--foreground);
+    color: var(--background);
   }
   
   .season-card-status--upcoming {

@@ -15,7 +15,7 @@ const SeasonCards: React.FC<SeasonCardsProps> = ({ seasons, loading = false, err
   if (loading) {
     return (
       <div className="season-cards-container">
-        <h2 className="season-cards-title">Sezonlar</h2>
+        <h2 className="season-cards-title">Seasons</h2>
         <div className="loading-spinner">Yükleniyor...</div>
       </div>
     );
@@ -24,7 +24,7 @@ const SeasonCards: React.FC<SeasonCardsProps> = ({ seasons, loading = false, err
   if (error) {
     return (
       <div className="season-cards-container">
-        <h2 className="season-cards-title">Sezonlar</h2>
+        <h2 className="season-cards-title">Seasons</h2>
         <div className="error-message">
           <p>{error}</p>
         </div>
@@ -34,7 +34,7 @@ const SeasonCards: React.FC<SeasonCardsProps> = ({ seasons, loading = false, err
 
   return (
     <div className="season-cards-container">
-      <h2 className="season-cards-title">Sezonlar</h2>
+      <h2 className="season-cards-title">Seasons</h2>
       <div className="season-cards-grid">
         {seasons.map((season) => (
             <Link key={season.id} href={`/seasons/${season.year}`}>
@@ -42,8 +42,8 @@ const SeasonCards: React.FC<SeasonCardsProps> = ({ seasons, loading = false, err
             <div className="season-card-header">
               <h3 className="season-card-year">{season.year}</h3>
               <span className={`season-card-status season-card-status--${season.status}`}>
-                {season.status === 'active' ? 'Aktif' : 
-                 season.status === 'completed' ? 'Tamamlandı' : 'Yaklaşıyor'}
+                {season.status === 'active' ? 'Active' : 
+                 season.status === 'completed' ? 'Completed' : 'Upcoming'}
               </span>
             </div>
             <h4 className="season-card-name">{season.name}</h4>

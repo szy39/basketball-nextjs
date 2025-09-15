@@ -27,10 +27,10 @@ const transformSeasons = (seasonYears: SeasonYear[]): SeasonCard[] => {
       year: year,
       name: `Basketball League ${year}`,
       description: status === 'active' 
-        ? 'Şu anda devam eden sezon.'
+        ? 'Active playing season.'
         : status === 'upcoming'
-        ? 'Gelecek sezon için hazırlıklar devam ediyor.'
-        : 'Bu sezon tamamlandı',
+        ? 'Upcoming season...'
+        : 'Season has been completed.',
       status: status
     };
   });
@@ -51,7 +51,7 @@ const SeasonsPage = async () => {
     console.error('Sezonlar yüklenirken hata:', err);
     return (
       <div className="seasons-page">
-        <SeasonCards seasons={[]} error="Bir hata oluştu" />
+       <div className="error-message">Bir hata oluştu</div>
       </div>
     );
   }
