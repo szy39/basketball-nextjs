@@ -36,16 +36,20 @@ export const getAllCountries = async():Promise<CountriesResponse>=>{
     return response.json();
 }
 
-export const getAllLeagues = async():Promise<LeaguesResponse>=>{
-    const response = await fetch(`${API_BASE_URL}/leagues`,{
-        method:"GET",
-        headers:{
+export const getAllLeagues = async(season?: number | string): Promise<LeaguesResponse> => {
+    let url = `${API_BASE_URL}/leagues`;
+    if (season) {
+        url += `?season=${season}`;
+    }
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
             "x-rapidapi-host": "v1.basketball.api-sports.io",
             "x-rapidapi-key": API_KEY
         }
-    })
-    if(!response.ok){
-        throw new Error (`leagues could not be loaded: ${response.status} ${response.statusText}`)
+    });
+    if (!response.ok) {
+        throw new Error(`leagues could not be loaded: ${response.status} ${response.statusText}`);
     }
-    return response.json()
+    return response.json();
 }
