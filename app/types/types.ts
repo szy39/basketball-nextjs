@@ -43,6 +43,7 @@ export interface Country {
   name: string;
   code: string;
   flag: string;
+  description?:string
 }
 
 export interface CountriesResponse {
@@ -77,10 +78,10 @@ export interface LeaguesResponse {
     }
     errors:[];
     results:number;
-    response:[]
+    response:League[]
 }
 export type League = {
-    country:Country[]
+    country:Country
     id: number | string;
     logo:string
     name:string
