@@ -88,3 +88,99 @@ text-align: center;
     color: var(--background);
     background-color: #e0dede;
 }
+.league-error-message{
+    font-family: var(--font-oswald);
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    color: var(--foreground);
+}
+
+.leagues-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.league-item {
+    display: grid;
+    grid-template-columns: 2rem 12.5rem 5rem 1fr 7.5rem;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgba(37, 37, 37, 0.3);
+    border: 1px solid rgba(224, 222, 222, 0.2);
+    transition: all 0.2s ease;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.league-item:hover {
+    background-color: var(--foreground);
+    border-color: var(--foreground);
+    color: var(--background);
+    .country-name{
+        color: var(--background);
+    }
+    .country-code{
+        color: var(--background);
+    }
+    .league-name{
+        color: var(--background);
+    }
+    .league-type{
+        color: var(--background);
+    }
+}
+
+.league-item .flag {
+    width: 3rem;
+    height: 2.2rem;
+    object-fit: cover;
+    
+}
+
+.league-item .country-name {
+    font-family: var(--font-oswald);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--foreground);
+}
+
+.league-item .country-code {
+    font-family: var(--font-oswald);
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.league-item .league-name {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-family: var(--font-oswald);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--foreground);
+}
+.league-item .league-logo {
+    display: flex;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    overflow: hidden;
+}
+
+.league-item .league-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.league-item .league-type {
+    font-family: var(--font-oswald);
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: capitalize;
+}
