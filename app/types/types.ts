@@ -7,6 +7,12 @@ export interface BasketballApiResponse<T> {
   response: T;
 }
 
+export interface LeagueSearchParams {
+  season?: string | number;
+  country?: string;
+  name?: string;
+}
+
 // Season Types
 export type SeasonYear = string | number;
 

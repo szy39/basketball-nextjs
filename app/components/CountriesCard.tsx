@@ -1,14 +1,19 @@
 'use client';
 
 import React, {useMemo, useState} from 'react';
+import { useRouter } from 'next/navigation';
 import { CountriesCardProps } from '../types/types';
 import "../CSS/CountriesCard.css";
 
 
-
 const CountriesCard: React.FC<CountriesCardProps> = ({ countries, loading = false, error = null }) => {
+  const router = useRouter()
 const [search,setSearch] = useState("")
 const [inputValue, setInputValue] = useState("  ")
+
+const handleCountryClick = (countryName: string) => {
+  router.push(`/leagues?country=${countryName}`)
+}
 
 const filteredCountries = useMemo(() => {
     if (!search.trim()) return countries;
@@ -53,7 +58,10 @@ const filteredCountries = useMemo(() => {
       </div>
       <div className="countries-cards-grid">
         {filteredCountries.map((country) => (
-          <div key={country.id} className="country-card">
+          <div
+           key={country.id}
+            className="country-card" 
+            onClick={()=>handleCountryClick(country.name)}>
             <div className="country-flag">
               <img src={country.flag} alt={`${country.name} bayrağı`} />
             </div>
