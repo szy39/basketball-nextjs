@@ -3,53 +3,63 @@ import { CountriesResponse, LeaguesResponse, SeasonsResponse } from '../types/ty
 const API_BASE_URL = "https://v1.basketball.api-sports.io";
 const API_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "c676c73bee2956cd3998d54d147b0bdc";
 
-// Season API call
-export const getAllSeasons = async (): Promise<SeasonsResponse> => {
-    const response = await fetch(`${API_BASE_URL}/seasons`, {
+// Ortak header'lar
+const getHeaders = () => ({
+    "x-rapidapi-host": "v1.basketball.api-sports.io",
+    "x-rapidapi-key": API_KEY
+});
+
+// Ortak fetch fonksiyonu
+const apiRequest = async <T>(url: string): Promise<T> => {
+    const response = await fetch(url, {
         method: "GET",
-        headers: {
-            "x-rapidapi-host": "v1.basketball.api-sports.io",
-            "x-rapidapi-key": API_KEY
-        }
+        headers: getHeaders()
     });
     
     if (!response.ok) {
-        throw new Error(`Seasons could not be loaded: ${response.status} ${response.statusText}`);
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
     }
     
     return response.json();
 };
 
-export const getAllCountries = async():Promise<CountriesResponse>=>{
-    const response = await fetch(`${API_BASE_URL}/countries`,{
-        method:"GET",
-        headers:{
-            "x-rapidapi-host": "v1.basketball.api-sports.io",
-            "x-rapidapi-key": API_KEY
-        }
-    });
-    
-    if (!response.ok) {
-        throw new Error(`Countries could not be loaded: ${response.status} ${response.statusText}`);
-    }
-    
-    return response.json();
+// League arama parametreleri için interface
+export interface LeagueSearchParams {
+    season?: string | number;
+    country?: string;
+    name?: string;
 }
 
-export const getAllLeagues = async(season?: number | string): Promise<LeaguesResponse> => {
+// Season API call
+export const getAllSeasons = async (): Promise<SeasonsResponse> => {
+    return apiRequest<SeasonsResponse>(`${API_BASE_URL}/seasons`);
+};
+
+// Countries API call
+export const getAllCountries = async (): Promise<CountriesResponse> => {
+    return apiRequest<CountriesResponse>(`${API_BASE_URL}/countries`);
+};
+
+// Leagues API call - Geliştirilmiş versiyon
+export const getAllLeagues = async (params?: LeagueSearchParams): Promise<LeaguesResponse> => {
     let url = `${API_BASE_URL}/leagues`;
-    if (season) {
-        url += `?season=${season}`;
+    const queryParams = new URLSearchParams();
+    
+    if (params?.season) {
+        queryParams.append('season', String(params.season));
     }
-    const response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "x-rapidapi-host": "v1.basketball.api-sports.io",
-            "x-rapidapi-key": API_KEY
-        }
-    });
-    if (!response.ok) {
-        throw new Error(`leagues could not be loaded: ${response.status} ${response.statusText}`);
+    
+    if (params?.country) {
+        queryParams.append('country', params.country);
     }
-    return response.json();
-}
+    
+    if (params?.name) {
+        queryParams.append('search', params.name);
+    }
+    
+    if (queryParams.toString()) {
+        url += `?${queryParams.toString()}`;
+    }
+    
+    return apiRequest<LeaguesResponse>(url);
+};

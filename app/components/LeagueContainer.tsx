@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Country, League, SeasonYear } from '../types/types'
-import { getAllCountries, getAllLeagues, getAllSeasons } from '../services/api'
+import { getAllCountries, getAllLeagues, getAllSeasons, LeagueSearchParams } from '../services/api'
 import "../CSS/LeagueContainer.css"
 
 const LeagueContainer = () => {
@@ -11,6 +11,7 @@ const LeagueContainer = () => {
   const [leagues, setLeagues] = useState<League[]>([])
   const [countryList, setCountryList] = useState<Country[]>([]);
   const [selectedCountry , setSelectedCountry] = useState<string>("")
+  const [errorMessage, setErrorMessage] = useState<string>("")
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -27,27 +28,38 @@ const LeagueContainer = () => {
   }, []);
 
   const handleSearch = async () => {
-  
-    const apiResponse = await getAllLeagues(selectedSeason || undefined);
-  
-    if (apiResponse.response.length > 0) {
+    try {
+      // API parametreleri
+      const searchParams: LeagueSearchParams = {};
+      
+      if (selectedSeason) {
+        searchParams.season = selectedSeason;
+      }
+      
+      if (selectedCountry) {
+        searchParams.country = selectedCountry;
+      }
+      
+      
+      const apiResponse = await getAllLeagues(searchParams);
+      
+      if (apiResponse.results === 0) {
+        console.log("Arama kriterlerinize uygun lig bulunamadı");
+        setErrorMessage("Arama kriterlerinize uygun lig bulunamadı");
+        setLeagues([]);
+        return;
+      }
+      
+      setErrorMessage(""); 
       setLeagues(apiResponse.response);
-      console.log(apiResponse,"istek atılan yer")
-    } else {
-      const allLeagues = await getAllLeagues();
-      const filtered = (allLeagues.response).filter(league =>
-        league.seasons &&
-        league.seasons.some(
-          (s: any) =>
-            String(s.season) === selectedSeason ||
-            String(s.season).includes(selectedSeason) ||
-            selectedSeason.includes(String(s.season))
-        )
-      );
-      setLeagues(filtered);
-      console.log(filtered,"ui filtresi")
+      console.log(apiResponse, "API'den gelen veriler");
+    } catch (error) {
+      console.error("Arama sırasında hata:", error);
+      setErrorMessage(`Arama sırasında hata oluştu: ${error}`);
+      setLeagues([]);
     }
   };
+
   
   return (
     <div className='league-container'>
@@ -66,43 +78,42 @@ const LeagueContainer = () => {
           </select>
         </div>
         <div className="country-selectbox">
-          <select name="country"
-           value={selectedCountry} 
-           onChange={e => setSelectedCountry(e.target.value)}
-           >
-            {countryList.map((c)=> (
-              <option
-               key={c.id}
-                value={c.name}>
-                  {`${c.code}`|| "None"} - {c.name}
-                  </option>
+          <select 
+            name="country"
+            value={selectedCountry} 
+            onChange={e => setSelectedCountry(e.target.value)}
+          >
+            <option value="">Country select</option>
+            {countryList.map((c) => (
+              <option key={c.id} value={c.name}>
+                {c.code} - {c.name}
+              </option>
             ))}
           </select>
         </div>
         <input type="name" name="leagueName" id="" />
         <button onClick={handleSearch}>Search</button>
       </div>
-      {/* Ligleri göstermek için örnek */}
-      <div>
+      
+      {/* Hata mesajı */}
+      {errorMessage && (
+        <div className='league-error-message'>
+          {errorMessage}
+        </div>
+      )}
+     
+      <div className="leagues-list">
         {leagues.map((league) => (
-          <div className='leagues' key={league.id}>
-           <div className="league-card-container">
-            <div className="league-country">
-            <div className="country-card">
-            <div className="country-flag">
-              <img src={league.country.flag} alt={`${league.country.name} bayrağı`} />
-            </div>
-            <div className="country-info">
-              <h3 className="country-name">{league.country.name}</h3>
-              <p className="country-code">{league.country.code}</p>
-              {league.country.description && (
-                <p className="country-description">{league.country.description}</p>
-              )}
-            </div>
-          </div>
-            </div>
-            <div className="league-informations"></div>
-           </div>
+          <div className="league-item" key={league.id}>
+            <img src={league.country.flag} alt={`${league.country.name} bayrağı`} className="flag" />
+            <span className="country-name">{league.country.name}</span>
+            <span className="country-code">{league.country.code}</span>
+           
+            <span className="league-name"> <span className="league-logo">
+              <img src={league.logo} alt={`${league.name} logo`} />
+            </span>{league.name}</span>
+            
+            <span className="league-type">{league.type}</span>
           </div>
         ))}
       </div>
