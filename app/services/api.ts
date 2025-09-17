@@ -1,4 +1,4 @@
-import { CountriesResponse, LeaguesResponse, SeasonsResponse } from '../types/types';
+import { CountriesResponse, LeagueSearchParams, LeaguesResponse, SeasonsResponse } from '../types/types';
 
 const API_BASE_URL = "https://v1.basketball.api-sports.io";
 const API_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_KEY || "c676c73bee2956cd3998d54d147b0bdc";
@@ -23,24 +23,17 @@ const apiRequest = async <T>(url: string): Promise<T> => {
     return response.json();
 };
 
-// League arama parametreleri için interface
-export interface LeagueSearchParams {
-    season?: string | number;
-    country?: string;
-    name?: string;
-}
 
-// Season API call
 export const getAllSeasons = async (): Promise<SeasonsResponse> => {
     return apiRequest<SeasonsResponse>(`${API_BASE_URL}/seasons`);
 };
 
-// Countries API call
+
 export const getAllCountries = async (): Promise<CountriesResponse> => {
     return apiRequest<CountriesResponse>(`${API_BASE_URL}/countries`);
 };
 
-// Leagues API call - Geliştirilmiş versiyon
+
 export const getAllLeagues = async (params?: LeagueSearchParams): Promise<LeaguesResponse> => {
     let url = `${API_BASE_URL}/leagues`;
     const queryParams = new URLSearchParams();

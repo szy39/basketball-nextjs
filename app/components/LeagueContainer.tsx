@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import { Country, League, SeasonYear } from '../types/types'
-import { getAllCountries, getAllLeagues, getAllSeasons, LeagueSearchParams } from '../services/api'
+import { Country, League, LeagueSearchParams, SeasonYear } from '../types/types'
+import { getAllCountries, getAllLeagues, getAllSeasons } from '../services/api'
+import { useSearchParams, useRouter } from 'next/navigation'
 import "../CSS/LeagueContainer.css"
 
 const LeagueContainer = () => {
@@ -11,7 +12,17 @@ const LeagueContainer = () => {
   const [leagues, setLeagues] = useState<League[]>([])
   const [countryList, setCountryList] = useState<Country[]>([]);
   const [selectedCountry , setSelectedCountry] = useState<string>("")
+  const [leagueName, setLeagueName] = useState<string>("")
   const [errorMessage, setErrorMessage] = useState<string>("")
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const searchParams = useSearchParams()
+  const countryUrl = searchParams.get("country")
+
+  const router = useRouter()
+  const handleLeagueClick = (league: League) => {
+    localStorage.setItem("league", JSON.stringify(league))
+    router.push(`/leagues/${league.id}`)
+  }
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -27,8 +38,23 @@ const LeagueContainer = () => {
     fetchAllLeagues()
   }, []);
 
+  useEffect(() => {
+    if (countryUrl) {
+      setSelectedCountry(countryUrl);
+    }
+  }, [countryUrl]);
+
+  useEffect(() => {
+    if (selectedCountry && countryUrl) {
+      handleSearch();
+    }
+  }, [selectedCountry]);
+
   const handleSearch = async () => {
     try {
+      setIsLoading(true);
+      setErrorMessage("");
+      
       // API parametreleri
       const searchParams: LeagueSearchParams = {};
       
@@ -38,6 +64,10 @@ const LeagueContainer = () => {
       
       if (selectedCountry) {
         searchParams.country = selectedCountry;
+      }
+      
+      if (leagueName) {
+        searchParams.name = leagueName;
       }
       
       
@@ -57,6 +87,8 @@ const LeagueContainer = () => {
       console.error("Arama sırasında hata:", error);
       setErrorMessage(`Arama sırasında hata oluştu: ${error}`);
       setLeagues([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -91,10 +123,23 @@ const LeagueContainer = () => {
             ))}
           </select>
         </div>
-        <input type="name" name="leagueName" id="" />
+        <input 
+          type="text" 
+          name="leagueName" 
+          placeholder="League name"
+          value={leagueName}
+          onChange={e => setLeagueName(e.target.value)}
+        />
         <button onClick={handleSearch}>Search</button>
       </div>
       
+      {/* Loading mesajı */}
+      {isLoading && (
+        <div className='league-loading-message'>
+          Loading...
+        </div>
+      )}
+
       {/* Hata mesajı */}
       {errorMessage && (
         <div className='league-error-message'>
@@ -104,7 +149,7 @@ const LeagueContainer = () => {
      
       <div className="leagues-list">
         {leagues.map((league) => (
-          <div className="league-item" key={league.id}>
+          <div className="league-item" key={league.id} onClick={() => handleLeagueClick(league)}>
             <img src={league.country.flag} alt={`${league.country.name} bayrağı`} className="flag" />
             <span className="country-name">{league.country.name}</span>
             <span className="country-code">{league.country.code}</span>
