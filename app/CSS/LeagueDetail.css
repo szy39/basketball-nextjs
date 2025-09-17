@@ -1,0 +1,38 @@
+.league-detail-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem;
+    height: 100vh;
+    width: 100%;
+}
+.league-detail-image-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    height: auto;
+}
+.league-detail-image-container{
+    gap: 5rem;
+}
+.detail-image-country img{
+    width: 10rem;
+    height: 10rem;
+    
+}
+.league-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-oswald), Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--foreground);
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    margin-top: 3rem;
+}

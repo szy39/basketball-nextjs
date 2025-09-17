@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { Country, League, LeagueSearchParams, SeasonYear } from '../types/types'
 import { getAllCountries, getAllLeagues, getAllSeasons } from '../services/api'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import "../CSS/LeagueContainer.css"
 
 const LeagueContainer = () => {
@@ -17,6 +17,12 @@ const LeagueContainer = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const searchParams = useSearchParams()
   const countryUrl = searchParams.get("country")
+
+  const router = useRouter()
+  const handleLeagueClick = (league: League) => {
+    localStorage.setItem("league", JSON.stringify(league))
+    router.push(`/leagues/${league.id}`)
+  }
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -143,7 +149,7 @@ const LeagueContainer = () => {
      
       <div className="leagues-list">
         {leagues.map((league) => (
-          <div className="league-item" key={league.id}>
+          <div className="league-item" key={league.id} onClick={() => handleLeagueClick(league)}>
             <img src={league.country.flag} alt={`${league.country.name} bayrağı`} className="flag" />
             <span className="country-name">{league.country.name}</span>
             <span className="country-code">{league.country.code}</span>
