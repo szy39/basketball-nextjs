@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 4rem;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
 }
 .league-detail-image-container{
@@ -117,4 +117,13 @@
 .league-detail-teams-list-item:hover{
     background-color: var(--foreground);
     color: var(--background);
+}
+
+.league-detail-teams-list-item img{
+
+    width: 10rem;
+    height: 10rem;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }

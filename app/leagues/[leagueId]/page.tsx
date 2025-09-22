@@ -30,6 +30,7 @@ const LeagueDetailPage = () => {
     try {
       const response = await getTeams({ league: leagueId, season })
       setTeams(response.response)
+      console.log(response.response, "takımlar")
     } catch (error) {
       setTeamsError('Takımlar yüklenirken hata oluştu')
       console.error('Teams fetch error:', error)
@@ -48,6 +49,7 @@ const LeagueDetailPage = () => {
   if (!leagueData) {
     return <div>Loading...</div>
   }
+  console.log(teams, "takımlar")
   console.log(leagueData, "leagueData")
   return (
    <div className='league-detail-container'>
@@ -87,6 +89,7 @@ const LeagueDetailPage = () => {
             <div className='league-detail-teams-list'>
                 {teams.map((team, index) => (
                     <div className='league-detail-teams-list-item' key={`${team.id}-${index}`}>
+                        <img src={team.logo || ""} alt={team.name} />
                         <h2>{team.name}</h2>
                     </div>
                 ))}
