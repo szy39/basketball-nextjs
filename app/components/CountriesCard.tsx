@@ -3,6 +3,7 @@
 import React, {useMemo, useState} from 'react';
 import { useRouter } from 'next/navigation';
 import { CountriesCardProps } from '../types/types';
+import LoadingSpinner from '../utils/LoadingSpinner';
 import "../CSS/CountriesCard.css";
 
 
@@ -29,8 +30,7 @@ const filteredCountries = useMemo(() => {
     return (
       <div className="countries-container">
         <h2 className="countries-title">Country Search</h2>
-
-        <div className="loading-spinner">Yükleniyor...</div>
+        <LoadingSpinner message="Ülkeler yükleniyor..." />
       </div>
     );
   }

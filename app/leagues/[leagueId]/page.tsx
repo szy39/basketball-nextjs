@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import "../../CSS/LeagueDetail.css"
 import { League, Team } from '../../types/types'
 import { getTeams } from '../../services/api'
+import LoadingSpinner from '../../utils/LoadingSpinner'
 
 const LeagueDetailPage = () => {
   const [leagueData, setLeagueData] = useState<League | null>(null)
@@ -46,7 +47,11 @@ const LeagueDetailPage = () => {
   }
 
   if (!leagueData) {
-    return <div>Loading...</div>
+    return (
+      <div className="league-detail-container">
+        <LoadingSpinner message="Lig bilgileri yükleniyor..." />
+      </div>
+    )
   }
   console.log(teams, "takımlar")
   return (
@@ -81,7 +86,7 @@ const LeagueDetailPage = () => {
     <div className='league-detail-teams'>
         <h1>Teams {selectedSeason && `- ${selectedSeason}`}</h1>
         {!selectedSeason && <div style={{color: '#666', fontStyle: 'italic'}}>Lütfen bir sezon seçin</div>}
-        {teamsLoading && <div>Takımlar yükleniyor...</div>}
+        {teamsLoading && <LoadingSpinner message="Takımlar yükleniyor..." />}
         {teamsError && <div style={{color: 'red'}}>{teamsError}</div>}
         {!teamsLoading && !teamsError && selectedSeason && (
             <div className='league-detail-teams-list'>

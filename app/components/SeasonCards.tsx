@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { SeasonCard } from '../types/types';
+import LoadingSpinner from '../utils/LoadingSpinner';
 import "../CSS/SeasonCard.css"
 import Link from 'next/link';
 
@@ -16,7 +17,7 @@ const SeasonCards: React.FC<SeasonCardsProps> = ({ seasons, loading = false, err
     return (
       <div className="season-cards-container">
         <h2 className="season-cards-title">Seasons</h2>
-        <div className="loading-spinner">Yükleniyor...</div>
+        <LoadingSpinner message="Sezonlar yükleniyor..." />
       </div>
     );
   }
