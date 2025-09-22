@@ -36,3 +36,85 @@
     height: auto;
     margin-top: 3rem;
 }
+
+.league-detail-seasons{
+    font-family: var(--font-oswald);
+    text-transform: uppercase;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4rem;
+}
+
+.league-detail-seasons-list{
+    font-family: var(--font-oswald);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 2rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 10rem;
+}
+.league-detail-seasons-list-item{
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.league-detail-seasons-list-item:hover{
+    background-color: var(--foreground);
+    color: var(--background);
+}
+
+.league-detail-seasons-list-item.selected{
+    background-color: var(--foreground);
+    color: var(--background);
+    border: 2px solid var(--foreground);
+}
+
+.league-detail-teams{
+    font-family: var(--font-oswald);
+    text-transform: uppercase;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4rem;
+}
+
+.league-detail-teams-list{
+    font-family: var(--font-oswald);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 10rem;
+}
+
+.league-detail-teams-list-item{
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.league-detail-teams-list-item:hover{
+    background-color: var(--foreground);
+    color: var(--background);
+}

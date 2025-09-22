@@ -1,8 +1,8 @@
 // Basketball API Response Types
 export interface BasketballApiResponse<T> {
   get: string;
-  parameters: any[];
-  errors: any[];
+  parameters: [];
+  errors: [];
   results: number;
   response: T;
 }
@@ -86,14 +86,61 @@ export interface LeaguesResponse {
     results:number;
     response:League[]
 }
+// API'den gelen League.seasons için
+export interface LeagueSeason {
+    season: string | number;
+    start: string;
+    end: string;
+    coverage: {
+        games: {
+            [key: string]: boolean;
+        };
+        standings: boolean;
+        players: boolean;
+        odds: boolean;
+    };
+}
+
+// SeasonCard için (seasons sayfasında kullanılan)
+export interface Season {
+    year: string | number;
+}
+
 export type League = {
-    country:Country
+    country: Country;
     id: number | string;
-    logo:string
-    name:string
-    type:string
-    seasons:[]
+    logo: string;
+    name: string;
+    type: string;
+    seasons: LeagueSeason[];
 }
 export interface LeagueContainerProps {
     response:League[]
+}
+
+// Team Types
+export interface Team {
+  id: number;
+  name: string;
+  national: boolean;
+  logo: string | null;
+  country: Country;
+}
+
+export interface TeamSearchParams {
+  id?: number;
+  name?: string;
+  country_id?: number;
+  country?: string;
+  league?: number;
+  season?: string;
+  search?: string;
+}
+
+export interface TeamsResponse {
+  get: "teams";
+  parameters: TeamSearchParams;
+  errors: [];
+  results: number;
+  response: Team[];
 }
