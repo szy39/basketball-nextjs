@@ -50,7 +50,19 @@ export default function Home() {
               fontWeight: 'bold'
             }}
           >
-            {loading ? 'Yükleniyor...' : 'Basketball API Test Et'}
+            {loading ? (
+              <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                <div style={{
+                  width: '20px',
+                  height: '20px',
+                  border: '2px solid rgba(255,255,255,0.3)',
+                  borderTop: '2px solid white',
+                  borderRadius: '50%',
+                  animation: 'spin 1s linear infinite'
+                }}></div>
+                Yükleniyor...
+              </div>
+            ) : 'Basketball API Test Et'}
           </button>
         </div>
 

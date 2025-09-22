@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Country, League, LeagueSearchParams, SeasonYear } from '../types/types'
 import { getAllCountries, getAllLeagues, getAllSeasons } from '../services/api'
 import { useSearchParams, useRouter } from 'next/navigation'
+import LoadingSpinner from '../utils/LoadingSpinner'
 import "../CSS/LeagueContainer.css"
 
 const LeagueContainer = () => {
@@ -134,11 +135,7 @@ const LeagueContainer = () => {
       </div>
       
       {/* Loading mesajı */}
-      {isLoading && (
-        <div className='league-loading-message'>
-          Loading...
-        </div>
-      )}
+      {isLoading && <LoadingSpinner message="Ligler aranıyor..." />}
 
       {/* Hata mesajı */}
       {errorMessage && (
