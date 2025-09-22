@@ -48,7 +48,7 @@ const LeagueDetailPage = () => {
   if (!leagueData) {
     return <div>Loading...</div>
   }
-  console.log(leagueData, "leagueData")
+  console.log(teams, "takımlar")
   return (
    <div className='league-detail-container'>
     <div className='league-detail-image-container'>
@@ -87,6 +87,7 @@ const LeagueDetailPage = () => {
             <div className='league-detail-teams-list'>
                 {teams.map((team, index) => (
                     <div className='league-detail-teams-list-item' key={`${team.id}-${index}`}>
+                        <img src={team.logo || ""} alt={team.name} />
                         <h2>{team.name}</h2>
                     </div>
                 ))}
