@@ -6,6 +6,7 @@ import "../../CSS/LeagueDetail.css"
 import { League, Team } from '../../types/types'
 import { getTeams } from '../../services/api'
 import LoadingSpinner from '../../utils/LoadingSpinner'
+import Link from 'next/link'
 
 const LeagueDetailPage = () => {
   const [leagueData, setLeagueData] = useState<League | null>(null)
@@ -91,10 +92,10 @@ const LeagueDetailPage = () => {
         {!teamsLoading && !teamsError && selectedSeason && (
             <div className='league-detail-teams-list'>
                 {teams.map((team, index) => (
-                    <div className='league-detail-teams-list-item' key={`${team.id}-${index}`}>
+                    <Link className='league-detail-teams-list-item' key={`${team.id}-${index}`} href={`/teams/${team.id}`}>
                         <img src={team.logo || ""} alt={team.name} />
                         <h2>{team.name}</h2>
-                    </div>
+                    </Link>
                 ))}
             </div>
         )}
