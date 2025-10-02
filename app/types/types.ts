@@ -8,9 +8,14 @@ export interface BasketballApiResponse<T> {
 }
 
 export interface LeagueSearchParams {
-  season?: string | number;
-  country?: string;
+  id?: number;
   name?: string;
+  country_id?: number;
+  country?: string;
+  type?: string;
+  season?: string | number;
+  search?: string;
+  code?: string;
 }
 
 // Season Types

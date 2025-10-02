@@ -5,6 +5,7 @@ import { getTeams, getAllLeagues } from '../services/api'
 import { Team } from '../types/types'
 import LoadingSpinner from '../utils/LoadingSpinner'
 import '../CSS/TeamContainer.css'
+import Link from 'next/link'
 
 const TeamContainer = () => {
   const [teams, setTeams] = useState<Team[]>([])
@@ -92,7 +93,7 @@ const TeamContainer = () => {
         <div className="no-results">Sonuç bulunamadı</div>
       )}
       {!loading && !error && teams.map((team, index) => (
-        <div key={`${team.id}-${index}`} className="team-item">
+        <Link key={`${team.id}-${index}`} className="team-item" href={`/teams/${team.id}`}>
           <img 
             src={team.logo || "../assets/basketball.png"} 
             alt={team.name}
@@ -101,7 +102,7 @@ const TeamContainer = () => {
           />
           <h3>{team.name}</h3>
           <p>{team.country.name}</p>
-        </div>
+        </Link>
       ))}
     </div>
    </div>

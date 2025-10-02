@@ -38,17 +38,15 @@ export const getAllLeagues = async (params?: LeagueSearchParams): Promise<League
     let url = `${API_BASE_URL}/leagues`;
     const queryParams = new URLSearchParams();
     
-    if (params?.season) {
-        queryParams.append('season', String(params.season));
-    }
-    
-    if (params?.country) {
-        queryParams.append('country', params.country);
-    }
-    
-    if (params?.name) {
-        queryParams.append('search', params.name);
-    }
+    params?.id && queryParams.append('id', String(params.id));
+    params?.name && queryParams.append('name', params.name);
+    params?.country_id && queryParams.append('country_id', String(params.country_id));
+    params?.country && queryParams.append('country', params.country);
+    params?.type && queryParams.append('type', params.type);
+    params?.season && queryParams.append('season', String(params.season));
+    params?.search && queryParams.append('search', params.search);
+    params?.code && queryParams.append('code', params.code);
+
     
     if (queryParams.toString()) {
         url += `?${queryParams.toString()}`;
@@ -61,33 +59,13 @@ export const getTeams = async (params?: TeamSearchParams): Promise<TeamsResponse
     let url = `${API_BASE_URL}/teams`;
     const queryParams = new URLSearchParams();
     
-    if (params?.id) {
-        queryParams.append('id', String(params.id));
-    }
-    
-    if (params?.name) {
-        queryParams.append('name', params.name);
-    }
-    
-    if (params?.country_id) {
-        queryParams.append('country_id', String(params.country_id));
-    }
-    
-    if (params?.country) {
-        queryParams.append('country', params.country);
-    }
-    
-    if (params?.league) {
-        queryParams.append('league', String(params.league));
-    }
-    
-    if (params?.season) {
-        queryParams.append('season', params.season);
-    }
-    
-    if (params?.search) {
-        queryParams.append('search', params.search);
-    }
+    params?.id && queryParams.append('id', String(params.id));
+    params?.name && queryParams.append('name', params.name);
+    params?.country_id && queryParams.append('country_id', String(params.country_id));
+    params?.country && queryParams.append('country', params.country);
+    params?.league && queryParams.append('league', String(params.league));
+    params?.season && queryParams.append('season', params.season);
+    params?.search && queryParams.append('search', params.search);
     
     if (queryParams.toString()) {
         url += `?${queryParams.toString()}`;
